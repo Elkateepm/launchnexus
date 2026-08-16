@@ -61,10 +61,9 @@
 })();
 
 /* ==========================================================================
-   Enquiry form — LaunchNexus
-   Posts to Supabase if window.LNX_CONFIG is filled in (see assets/config.js),
-   otherwise falls back to opening the visitor's email client so no enquiry is
-   ever silently lost.
+   Enquiry form — posts to /api/enquiry, which emails info@launchnexus.co.uk.
+   If the endpoint is unreachable (e.g. opened as a local file), it falls back
+   to the visitor's email client so an enquiry is never silently lost.
    ========================================================================== */
 (function () {
   'use strict';
@@ -74,19 +73,32 @@
 
   var status = document.getElementById('form-status');
   var submit = form.querySelector('button[type="submit"]');
-  var cfg = window.LNX_CONFIG || {};
-  var configured = Boolean(cfg.supabaseUrl && cfg.supabaseAnonKey);
 
   var say = function (message, kind) {
     status.className = 'form-status' + (kind ? ' is-' + kind : '');
     status.textContent = message;
   };
 
+  var mailtoFallback = function (data) {
+    var body = 'Name: ' + data.name +
+      '\nOrganisation: ' + data.organisation +
+      '\nEmail: ' + data.email +
+      '\nLooking for: ' + data.service +
+      '\nBudget: ' + (data.budget || 'Not given') +
+      '\nIdeal launch date: ' + (data.target_date || 'Not given') +
+      '\n\n' + data.message;
+    window.location.href = 'mailto:info@launchnexus.co.uk?subject=' +
+      encodeURIComponent('Project enquiry — ' + (data.organisation || data.name)) +
+      '&body=' + encodeURIComponent(body);
+  };
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    // Honeypot: bots fill hidden fields, people don't.
-    if (form.querySelector('[name="website"]').value) return;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
 
     var data = {
       name: form.name_field.value.trim(),
@@ -94,46 +106,32 @@
       email: form.email.value.trim(),
       service: (form.querySelector('input[name="service"]:checked') || {}).value || 'Not sure yet',
       message: form.message.value.trim(),
-      budget: form.budget.value.trim() || null,
-      target_date: form.target_date.value || null,
-      status: 'New'
+      budget: form.budget.value.trim(),
+      target_date: form.target_date.value,
+      website: form.website.value
     };
 
-    if (!configured) {
-      // No backend wired up yet — hand off to email rather than pretend it sent.
-      var body = 'Name: ' + data.name +
-        '\nOrganisation: ' + data.organisation +
-        '\nEmail: ' + data.email +
-        '\nLooking for: ' + data.service +
-        '\nBudget: ' + (data.budget || 'Not given') +
-        '\nIdeal launch date: ' + (data.target_date || 'Not given') +
-        '\n\n' + data.message;
-      window.location.href = 'mailto:info@launchnexus.co.uk?subject=' +
-        encodeURIComponent('Project enquiry — ' + (data.organisation || data.name)) +
-        '&body=' + encodeURIComponent(body);
-      return;
-    }
-
     submit.disabled = true;
-    say('Sending…', 'busy');
+    say('Sending\u2026', 'busy');
 
-    fetch(cfg.supabaseUrl + '/rest/v1/enquiries', {
+    fetch('/api/enquiry', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        apikey: cfg.supabaseAnonKey,
-        Authorization: 'Bearer ' + cfg.supabaseAnonKey,
-        Prefer: 'return=minimal'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     })
       .then(function (res) {
-        if (!res.ok) throw new Error('Request failed: ' + res.status);
-        window.location.href = 'thanks.html';
+        if (res.ok) {
+          window.location.href = 'thanks.html';
+          return;
+        }
+        return res.json().catch(function () { return {}; }).then(function (payload) {
+          submit.disabled = false;
+          say(payload.error || 'That didn\u2019t send. Please email info@launchnexus.co.uk instead.', 'error');
+        });
       })
       .catch(function () {
-        submit.disabled = false;
-        say('That didn\u2019t send. Please email info@launchnexus.co.uk and we\u2019ll pick it up from there.', 'error');
+        // Network or endpoint unavailable — hand off to email rather than fail.
+        mailtoFallback(data);
       });
   });
 })();

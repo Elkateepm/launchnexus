@@ -101,10 +101,9 @@ ul{margin:0;padding:0;list-style:none}
 .site-header{position:sticky;top:0;z-index:600;background:rgba(255,255,255,.86);backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
 .site-header.is-stuck{border-bottom-color:var(--line);box-shadow:0 4px 20px rgba(10,15,28,.05)}
 .nav{display:flex;align-items:center;justify-content:space-between;gap:20px;height:74px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.035em}
-.brand .mark{width:26px;height:26px;border-radius:8px;background:var(--grad);display:grid;place-items:center;flex:none}
-.brand .mark svg{width:14px;height:14px}
-.brand em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand{display:inline-flex;align-items:center;text-decoration:none}
+.brand img{height:34px;width:auto;display:block}
+@media(max-width:480px){.brand img{height:29px}}
 .nav-links{display:flex;align-items:center;gap:30px}
 .nav-links a{text-decoration:none;font-size:15px;font-weight:500;color:var(--muted);transition:color .18s}
 .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--text)}
@@ -296,7 +295,9 @@ ul{margin:0;padding:0;list-style:none}
 .site-footer{background:var(--ink);color:var(--muted-dark);padding:clamp(52px,7vw,76px) 0 34px;border-top:1px solid var(--ink-3)}
 .foot-grid{display:grid;gap:36px}
 @media(min-width:820px){.foot-grid{grid-template-columns:1.6fr 1fr 1fr 1fr}}
-.site-footer .brand{color:#fff;margin-bottom:14px}
+.site-footer .brand{margin-bottom:16px}
+.site-footer .brand img{height:42px}
+.foot-tagline{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:#7C88A3;margin:0 0 16px}
 .site-footer .foot-h{font-family:var(--f-display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#fff;font-weight:700;margin-bottom:16px}
 .site-footer ul{display:grid;gap:11px}
 .site-footer a{color:var(--muted-dark);text-decoration:none;font-size:15px;transition:color .18s}

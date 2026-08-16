@@ -20,8 +20,8 @@ deploys to Vercel as-is.
     terms.html              Website terms of use  (DRAFT — review)
     assets/site.css         Whole design system
     assets/site.js          Nav drawer, reveals, enquiry form
-    assets/config.js        Supabase credentials (empty by default)
-    supabase/enquiries.sql  Enquiries table + RLS
+    api/enquiry.js          Emails enquiries to info@launchnexus.co.uk
+    supabase/enquiries.sql  Optional enquiries table + RLS
     build.py                Regenerates every page from one shared shell
     sitemap.xml, robots.txt
 
@@ -38,21 +38,40 @@ next build. The one exception is `index.html`, which is not generated.
 
 ## Enquiry form
 
-With `assets/config.js` empty, the form opens the visitor's email client — it
-never silently drops an enquiry. To store enquiries instead:
+The form posts to `/api/enquiry`, a Vercel serverless function that emails the
+enquiry to info@launchnexus.co.uk via Resend, with `reply_to` set to the
+enquirer so replying goes straight back to them. If the endpoint is
+unreachable the form falls back to the visitor's email client, so an enquiry is
+never silently lost.
 
-1. Run `supabase/enquiries.sql` in the Supabase SQL editor.
-2. Put the project URL and anon key in `assets/config.js`.
+Environment variables (Vercel → Settings → Environment Variables):
 
-The anon key is public by design. The table is insert-only for `anon` with no
-select policy, so nobody can read enquiries through the API. Read them in the
-Supabase dashboard.
+    RESEND_API_KEY   required
+    ENQUIRY_TO       optional, defaults to info@launchnexus.co.uk
+    ENQUIRY_FROM     optional, defaults to onboarding@resend.dev
+
+`onboarding@resend.dev` only delivers to the Resend account owner's own
+address. Verify launchnexus.co.uk in Resend, then set ENQUIRY_FROM to
+something like `LaunchNexus <website@launchnexus.co.uk>` so enquiries reach the
+real inbox.
+
+To also store enquiries, run `supabase/enquiries.sql` and set `SUPABASE_URL`
+and `SUPABASE_SERVICE_ROLE_KEY`. The service-role key is used server-side only
+and never reaches the browser. A storage failure is logged but won't lose an
+enquiry that has already been emailed.
 
 ## Still to do
 
 - Point at the `launchnexus.co.uk` domain in Vercel.
-- Replace the SVG wordmark with a real logo (the old `logo.png` is the previous
-  LaunchStudios brand, and at 975KB is too heavy to ship regardless).
+- Set `RESEND_API_KEY` and verify the domain in Resend.
 - Get permission before naming the charity client on `work.html`.
 - Have the three legal pages reviewed.
 - Add real screenshots to the case studies on `work.html`.
+
+## Brand assets
+
+`assets/logo-lockup.png` is used in the nav; `logo-lockup-light.png` is the
+same lockup with the navy swapped for white, for the dark footer. Both are
+quantised for size. Favicons, the Apple touch icon and the social card image
+are generated from the same source. The full-resolution original is not in the
+repo — keep it somewhere safe.

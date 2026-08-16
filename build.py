@@ -16,9 +16,8 @@ NAV = [
     ("contact.html", "Contact"),
 ]
 
-MARK = ('<span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" '
-        'stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L12 4 L20 20"/>'
-        '<path d="M8 14h8"/></svg></span>')
+MARK = '<img src="assets/logo-lockup.png" alt="LaunchNexus" width="376" height="112">'
+MARK_LIGHT = '<img src="assets/logo-lockup-light.png" alt="LaunchNexus" width="376" height="112">'
 
 TICK = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" '
         'stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>')
@@ -51,6 +50,12 @@ def shell(page, body):
 <meta property="og:type" content="website">
 <meta property="og:url" content="{SITE}{'' if active == 'index.html' else active}">
 <meta name="theme-color" content="#0A0F1C">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:image" content="{SITE}assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
 {'<meta name="robots" content="noindex">' if page.get('noindex') else ''}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,7 +66,7 @@ def shell(page, body):
 
 <header class="site-header">
   <div class="wrap nav">
-    <a class="brand" href="index.html">{MARK}Launch<em>Nexus</em></a>
+    <a class="brand" href="index.html">{MARK}</a>
     <nav class="nav-links" aria-label="Primary">{links}</nav>
     <div class="nav-cta">
       <a class="btn btn--primary" href="contact.html">Start a Project</a>
@@ -80,7 +85,8 @@ def shell(page, body):
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a class="brand" href="index.html">{MARK}Launch<em>Nexus</em></a>
+        <a class="brand" href="index.html">{MARK_LIGHT}</a>
+        <p class="foot-tagline">Building technology. Connecting impact.</p>
         <p style="max-width:34ch;font-size:15px">Digital tools built around your organisation.</p>
         <p style="font-size:15px;margin-top:14px"><a href="mailto:info@launchnexus.co.uk">info@launchnexus.co.uk</a></p>
       </div>
@@ -103,7 +109,7 @@ def shell(page, body):
     </div>
     <div class="foot-note">
       <p>© <span data-year>2026</span> LaunchNexus Ltd. Registered in England &amp; Wales, company no. 17333693.</p>
-      <p>14 Souldern Street, Watford, WD18 0EU</p>
+      <p>Watford, United Kingdom · <a href="mailto:info@launchnexus.co.uk">info@launchnexus.co.uk</a></p>
     </div>
   </div>
 </footer>
@@ -710,7 +716,7 @@ CONTACT = page_hero(
 
         <div class="card" style="margin-top:32px">
           <h3>LaunchNexus Ltd</h3>
-          <p>14 Souldern Street<br>Watford, WD18 0EU<br>United Kingdom</p>
+          <p>Watford, United Kingdom.<br>Working with organisations UK-wide.</p>
           <p style="margin-top:12px">Registered in England &amp; Wales, company no. 17333693.</p>
         </div>
       </div>
@@ -719,7 +725,7 @@ CONTACT = page_hero(
 </section>
 """
 
-CONTACT_JS = '<script src="assets/config.js"></script>'
+CONTACT_JS = ''
 
 
 # ===========================================================================
@@ -758,7 +764,7 @@ PRIVACY = page_hero('<a href="index.html">Home</a> · Privacy', "Privacy notice.
     <p>This notice covers the LaunchNexus marketing website only. If you use a system we have built for another organisation, that organisation controls your data and you should contact them directly.</p>
 
     <h2>Who we are</h2>
-    <p>LaunchNexus Ltd, company number 17333693, registered at 14 Souldern Street, Watford, WD18 0EU, is the controller for personal data described here. Contact: <a href="mailto:info@launchnexus.co.uk">info@launchnexus.co.uk</a>.</p>
+    <p>LaunchNexus Ltd, company number 17333693, registered in England &amp; Wales, is the controller for personal data described here. Contact: <a href="mailto:info@launchnexus.co.uk">info@launchnexus.co.uk</a>.</p>
 
     <h2>What we collect</h2>
     <table>
@@ -810,7 +816,7 @@ TERMS = page_hero('<a href="index.html">Home</a> · Terms', "Website terms.",
     <div class="draft-note rise"><strong>Draft.</strong> These are website terms of use only, not terms for a project. Project terms are set out in the written proposal for each piece of work. Have these reviewed before publication.</div>
     <p><strong>Last updated:</strong> <span data-year>2026</span></p>
     <h2>Who we are</h2>
-    <p>This site is operated by LaunchNexus Ltd, company number 17333693, registered at 14 Souldern Street, Watford, WD18 0EU.</p>
+    <p>This site is operated by LaunchNexus Ltd, company number 17333693, registered in England &amp; Wales.</p>
     <h2>Using this site</h2>
     <p>You may use this site for lawful purposes. You must not misuse it by knowingly introducing malicious code or attempting to gain unauthorised access to it or any server or database connected to it.</p>
     <h2>Our content</h2>

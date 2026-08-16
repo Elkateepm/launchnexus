@@ -41,6 +41,9 @@ TICK = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width
 ARROW = ('<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" '
          'stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>')
 
+EXT = ('<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>')
+EXT_SMALL = ('<svg class="ext" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>')
+
 CHEV = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
         'stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>')
 
@@ -118,6 +121,7 @@ def shell(page, body):
         <li><a href="work.html">Work</a></li>
         <li><a href="how-it-works.html">How It Works</a></li>
         <li><a href="contact.html">Contact</a></li>
+        <li><a href="https://launchsession.co.uk" target="_blank" rel="noopener">LaunchSession<svg class="ext" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg><span class="sr-only"> (opens in a new tab)</span></a></li>
       </ul></div>
       <div><h2 class="foot-h">Legal</h2><ul>
         <li><a href="privacy.html">Privacy</a></li>
@@ -281,6 +285,7 @@ CRM = page_hero(
 ]) + """
     </div>
     <p class="lede rise" style="margin-top:34px;font-size:19px;color:var(--text)"><strong>Every CRM is different because every organisation is different.</strong></p>
+    <p class="lede rise" style="margin-top:18px">We build our own too. <a href="https://launchsession.co.uk" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;text-decoration:none">LaunchSession <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg><span class="sr-only"> (opens in a new tab)</span></a> is our platform for youth organisations, charities and sports clubs \u2014 the same approach, running in production.</p>
     <div class="btn-row rise"><a class="btn btn--primary" href="contact.html">Tell Us What You Need</a></div>
   </div>
 </section>

@@ -96,6 +96,7 @@ ul{margin:0;padding:0;list-style:none}
   text-decoration:none;display:inline-flex;align-items:center;gap:7px;
 }
 .link-arrow svg{transition:transform .2s ease}
+.link-arrow.is-ext:hover svg{transform:translate(2px,-2px)}
 .link-arrow:hover svg{transform:translateX(4px)}
 
 /* ---------- Skip link ---------- */
@@ -312,6 +313,7 @@ ul{margin:0;padding:0;list-style:none}
 .site-footer ul{display:grid;gap:11px}
 .site-footer a{color:var(--muted-dark);text-decoration:none;font-size:15px;transition:color .18s}
 .site-footer a:hover{color:#fff}
+.site-footer a .ext{width:11px;height:11px;margin-left:5px;opacity:.6;vertical-align:baseline}
 .foot-note{margin-top:44px;padding-top:24px;border-top:1px solid var(--ink-3);display:flex;flex-wrap:wrap;gap:14px 30px;justify-content:space-between;font-size:13px;color:#7C88A3}
 .foot-note p{margin:0;font-size:13px}
 
@@ -425,3 +427,4 @@ fieldset{border:0;padding:0;margin:0 0 22px}
 .prose td{color:var(--muted)}
 .draft-note{background:#FFF8E8;border:1px solid #F0DFB4;border-radius:var(--r);padding:18px 20px;font-size:15px;color:#6B5720;margin-bottom:32px}
 .mock-title{font-family:var(--f-display);font-size:13px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}

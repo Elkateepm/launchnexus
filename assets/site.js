@@ -319,15 +319,29 @@
   var countUp = function (el) {
     var target = parseInt(el.textContent, 10);
     if (isNaN(target)) return;
+
+    // Keep the real value in the DOM. If a frame is dropped, the observer
+    // fires oddly, or rAF never runs (background tab, throttled device), the
+    // number is still correct rather than blank.
+    el.setAttribute('data-value', target);
+
     var started = null;
+    var settle = function () {
+      el.textContent = target;
+    };
+
     var tick = function (now) {
       if (!started) started = now;
       var p = Math.min((now - started) / 900, 1);
       // ease-out so it settles rather than stopping dead
       el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
       if (p < 1) requestAnimationFrame(tick);
+      else settle();
     };
-    el.textContent = '0';
+
+    // Belt and braces: whatever happens to the animation, the final value
+    // lands within a second.
+    setTimeout(settle, 1100);
     requestAnimationFrame(tick);
   };
 

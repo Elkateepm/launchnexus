@@ -1,864 +1,446 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LaunchStudios — Beautiful Software. Built to Launch.</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LaunchNexus | Custom CRM, Websites &amp; App Development</title>
+<meta name="description" content="LaunchNexus builds personalised CRM systems, websites and apps designed around the way your organisation works.">
+<link rel="canonical" href="https://launchnexus.co.uk/">
+<meta property="og:title" content="LaunchNexus | Custom CRM, Websites &amp; App Development">
+<meta property="og:description" content="Digital tools built around your organisation. Custom CRMs, websites and apps designed around the way you actually work.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://launchnexus.co.uk/">
+<meta name="theme-color" content="#0A0F1C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --navy:#04060D;
-  --navy2:#080B18;
-  --blue:#4F8EF7;
-  --purple:#8B5CF6;
-  --cyan:#22D3EE;
-  --pink:#EC4899;
-  --white:#F0F4FF;
-  --grey:#6B7A99;
-  --border:rgba(255,255,255,0.06);
-  --grad:linear-gradient(135deg,#4F8EF7 0%,#8B5CF6 100%);
-  --grad2:linear-gradient(135deg,#8B5CF6 0%,#EC4899 100%);
-}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;cursor:none}
-
-.orb{position:fixed;border-radius:999px;filter:blur(80px);opacity:0.35;pointer-events:none;z-index:0}
-.orb-one{width:420px;height:420px;background:#4F8EF7;left:-140px;top:200px;animation:orbFloat 8s ease-in-out infinite}
-.orb-two{width:500px;height:500px;background:#8B5CF6;right:-180px;top:500px;animation:orbFloat 10s ease-in-out infinite reverse}
-.orb-three{width:300px;height:300px;background:#22D3EE;left:30%;bottom:20%;opacity:0.15;animation:orbFloat 12s ease-in-out infinite}
-@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
-/* CURSOR */
-#cur{width:8px;height:8px;background:#fff;border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform 0.2s,background 0.2s;top:0;left:0}
-#cur-ring{width:40px;height:40px;border:1px solid rgba(79,142,247,0.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;top:0;left:0;transition:transform 0.08s,width 0.2s,height 0.2s,border-color 0.2s;transform:translate(-50%,-50%)}
-#cur-glow{width:500px;height:500px;border-radius:50%;position:fixed;pointer-events:none;z-index:0;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(79,142,247,0.05),transparent 70%);transition:left 0.8s ease,top 0.8s ease}
-
-/* NAV */
-#nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 48px;height:80px;display:flex;align-items:center;justify-content:space-between;transition:all 0.4s}
-#nav.solid{background:rgba(4,6,13,0.9);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
-.nav-logo img{height:180px;width:auto;object-fit:contain;filter:brightness(1.1);display:block}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{font-size:13px;font-weight:500;color:var(--grey);text-decoration:none;transition:color 0.2s;letter-spacing:0.02em}
-.nav-links a:hover{color:var(--white)}
-.nav-btn{padding:11px 24px;background:var(--grad);border:none;border-radius:99px;color:#fff;font-size:13px;font-weight:700;cursor:none;text-decoration:none;transition:opacity 0.2s,transform 0.2s,box-shadow 0.2s;box-shadow:0 0 24px rgba(79,142,247,0.3);letter-spacing:0.02em}
-.nav-btn:hover{opacity:0.9;transform:scale(1.04);box-shadow:0 0 40px rgba(79,142,247,0.5)}
-
-/* HERO */
-#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 48px 0}
-#canvas-bg{position:absolute;inset:0;z-index:0}
-.hero-content{position:relative;z-index:2;text-align:center;max-width:960px;margin:0 auto}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(79,142,247,0.08);border:1px solid rgba(79,142,247,0.2);border-radius:99px;padding:7px 18px;font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:36px}
-.hero-tag-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.6)}}
-.hero-h1{font-family:'Syne',sans-serif;font-size:clamp(52px,8vw,110px);font-weight:800;line-height:0.96;letter-spacing:-0.04em;margin-bottom:32px}
-.hero-h1 .line{display:block;overflow:hidden}
-.hero-h1 .word{display:inline-block;transform:translateY(110%);animation:slideUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards}
-.hero-h1 .grad{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-@keyframes slideUp{to{transform:translateY(0)}}
-.hero-sub{font-size:18px;line-height:1.7;color:var(--grey);max-width:560px;margin:0 auto 48px;opacity:0;animation:fadeUp 0.8s ease 0.8s forwards}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.8s ease 1s forwards}
-.btn-glow{padding:16px 34px;background:var(--grad);border:none;border-radius:14px;color:#fff;font-size:15px;font-weight:700;cursor:none;text-decoration:none;transition:all 0.25s;box-shadow:0 0 40px rgba(79,142,247,0.35),0 8px 32px rgba(0,0,0,0.4);display:inline-flex;align-items:center;gap:10px;position:relative;overflow:hidden}
-.btn-glow::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);opacity:0;transition:opacity 0.2s}
-.btn-glow:hover{transform:translateY(-3px);box-shadow:0 0 60px rgba(79,142,247,0.55),0 12px 40px rgba(0,0,0,0.4)}
-.btn-glow:hover::before{opacity:1}
-.btn-outline{padding:16px 34px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:14px;color:var(--white);font-size:15px;font-weight:600;cursor:none;text-decoration:none;transition:all 0.25s;display:inline-flex;align-items:center;gap:10px}
-.btn-outline:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.25);transform:translateY(-2px)}
-.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp 0.8s ease 1.4s forwards;cursor:none}
-.hero-scroll span{font-size:10px;font-weight:700;color:var(--grey);letter-spacing:0.2em;text-transform:uppercase}
-.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,rgba(79,142,247,0.8),transparent);animation:scrollPulse 2s infinite}
-@keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(0.6)}50%{opacity:1;transform:scaleY(1)}}
-
-/* DASHBOARD MOCKUP */
-.hero-right{position:relative}
-.product-window{
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:28px;
-  background:linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04));
-  box-shadow:0 40px 120px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.15);
-  backdrop-filter:blur(20px);
-  padding:20px;
-  transform:perspective(1000px) rotateY(-4deg) rotateX(2deg);
-  transition:transform 0.4s ease;
-}
-.product-window:hover{transform:perspective(1000px) rotateY(-1deg) rotateX(0deg)}
-.window-bar{display:flex;gap:8px;margin-bottom:18px}
-.window-bar span{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.3)}
-.window-bar span:nth-child(1){background:#FF5F57}
-.window-bar span:nth-child(2){background:#FFBD2E}
-.window-bar span:nth-child(3){background:#28CA41}
-.dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.dash-panel{
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:18px;
-  background:rgba(8,12,29,0.7);
-  padding:18px;
-  backdrop-filter:blur(10px);
-}
-.dash-panel.large{grid-column:span 2;background:linear-gradient(135deg,rgba(79,142,247,0.2),rgba(139,92,246,0.12))}
-.dash-panel.wide{grid-column:span 2}
-.dash-panel small{display:block;color:var(--grey);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
-.dash-panel strong{font-size:28px;font-weight:800;display:block}
-.dash-progress{height:10px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden;margin-top:16px}
-.dash-progress-fill{width:0%;height:100%;background:linear-gradient(90deg,var(--cyan),var(--purple));border-radius:99px;transition:width 1.5s cubic-bezier(0.4,0,0.2,1)}
-.mission-card-float{
-  position:absolute;z-index:3;
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.15);
-  backdrop-filter:blur(20px);
-  border-radius:16px;
-  padding:14px 18px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.4);
-}
-.top-card{right:-20px;top:-20px}
-.bottom-card{left:-20px;bottom:30px}
-.mc-label{display:block;font-size:11px;color:var(--grey);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px}
-.mc-val{font-size:14px;font-weight:800;color:var(--white);display:block}
-/* MARQUEE STRIP */
-.marquee-section{padding:28px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(255,255,255,0.015);overflow:hidden;position:relative;z-index:2}
-.marquee-track{display:flex;gap:0;animation:marquee 25s linear infinite;width:max-content}
-.marquee-item{display:flex;align-items:center;gap:12px;padding:0 40px;white-space:nowrap;font-size:13px;font-weight:600;color:var(--grey)}
-.marquee-item .dot{width:4px;height:4px;background:var(--blue);border-radius:50%;opacity:0.6}
-
-/* SECTIONS */
-.section{padding:140px 48px;position:relative}
-.inner{max-width:1200px;margin:0 auto}
-.eyebrow{font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:18px;display:flex;align-items:center;gap:10px}
-.eyebrow::before{content:'';width:24px;height:1px;background:var(--blue)}
-.s-title{font-family:'Syne',sans-serif;font-size:clamp(36px,4.5vw,58px);font-weight:800;letter-spacing:-0.03em;line-height:1.06;margin-bottom:20px}
-.s-sub{font-size:17px;line-height:1.7;color:var(--grey);max-width:540px}
-
-/* WHAT WE BUILD — INTERACTIVE GRID */
-#services{background:var(--navy2)}
-.services-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:72px}
-.services-list{display:flex;flex-direction:column;gap:4px}
-.svc-item{padding:22px 24px;border-radius:16px;cursor:none;border:1px solid transparent;transition:all 0.3s;display:flex;align-items:center;gap:16px}
-.svc-item.active,.svc-item:hover{background:rgba(79,142,247,0.07);border-color:rgba(79,142,247,0.2)}
-.svc-num{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--blue);opacity:0.5;width:28px;flex-shrink:0}
-.svc-item.active .svc-num{opacity:1}
-.svc-name{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:rgba(255,255,255,0.5);transition:color 0.3s}
-.svc-item.active .svc-name,.svc-item:hover .svc-name{color:var(--white)}
-.svc-arrow{margin-left:auto;font-size:18px;color:var(--blue);opacity:0;transform:translateX(-8px);transition:all 0.3s}
-.svc-item.active .svc-arrow,.svc-item:hover .svc-arrow{opacity:1;transform:translateX(0)}
-.svc-panel{position:sticky;top:120px}
-.svc-card{display:none;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:28px;padding:44px;position:relative;overflow:hidden}
-.svc-card.active{display:block;animation:cardIn 0.4s ease}
-@keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.svc-card-glow{position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;pointer-events:none}
-.svc-card-icon{font-size:48px;margin-bottom:24px;display:block}
-.svc-card-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;margin-bottom:14px;letter-spacing:-0.02em}
-.svc-card-desc{font-size:15px;color:var(--grey);line-height:1.75;margin-bottom:28px}
-.svc-card-tags{display:flex;flex-wrap:wrap;gap:8px}
-.tag{padding:5px 14px;border-radius:99px;font-size:11px;font-weight:700;background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.2);color:var(--blue)}
-
-/* LAUNCHPAD */
-#launchpad{overflow:hidden}
-.lp-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:60px;flex-wrap:wrap;gap:20px}
-.lp-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.lp-card{border-radius:28px;padding:40px;border:1px solid var(--border);background:rgba(255,255,255,0.025);position:relative;overflow:hidden;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1),box-shadow 0.4s,border-color 0.4s;cursor:none}
-.lp-card:hover{transform:translateY(-10px);box-shadow:0 32px 80px rgba(0,0,0,0.5)}
-.lp-card.featured{background:linear-gradient(135deg,rgba(79,142,247,0.1),rgba(139,92,246,0.08));border-color:rgba(79,142,247,0.3)}
-.lp-card.featured:hover{border-color:rgba(79,142,247,0.6);box-shadow:0 32px 80px rgba(79,142,247,0.15)}
-.lp-card-glow{position:absolute;border-radius:50%;pointer-events:none;filter:blur(40px);opacity:0.5}
-.lp-icon{font-size:44px;margin-bottom:24px;display:block;position:relative;z-index:1}
-.lp-status{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:99px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px;position:relative;z-index:1}
-.lp-status.live{background:rgba(34,197,94,0.12);color:#4ADE80;border:1px solid rgba(74,222,128,0.2)}
-.lp-status.soon{background:rgba(79,142,247,0.12);color:var(--blue);border:1px solid rgba(79,142,247,0.2)}
-.lp-status.idea{background:rgba(139,92,246,0.12);color:#A78BFA;border:1px solid rgba(167,139,250,0.2)}
-.lp-name{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin-bottom:10px;letter-spacing:-0.02em;position:relative;z-index:1}
-.lp-desc{font-size:14px;color:var(--grey);line-height:1.7;position:relative;z-index:1}
-
-/* PROCESS — HORIZONTAL SCROLL */
-#process{overflow:hidden}
-.process-scroll{display:flex;gap:24px;padding:48px 0;overflow-x:auto;scrollbar-width:none;cursor:grab}
-.process-scroll::-webkit-scrollbar{display:none}
-.process-scroll.dragging{cursor:grabbing;user-select:none}
-.process-card{flex-shrink:0;width:320px;background:rgba(255,255,255,0.025);border:1px solid var(--border);border-radius:28px;padding:40px;position:relative;overflow:hidden;transition:border-color 0.3s}
-.process-card:hover{border-color:rgba(79,142,247,0.3)}
-.p-num{font-family:'Syne',sans-serif;font-size:72px;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:20px;opacity:0.25}
-.p-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:12px}
-.p-desc{font-size:14px;color:var(--grey);line-height:1.7}
-.p-icon{position:absolute;top:32px;right:32px;font-size:28px;opacity:0.4}
-.process-hint{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--grey);margin-top:16px}
-
-/* STATS SECTION */
-#stats{background:var(--navy2);padding:100px 48px}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);border-radius:24px;overflow:hidden}
-.stat-box{background:var(--navy2);padding:48px 36px;text-align:center;position:relative;overflow:hidden;transition:background 0.3s}
-.stat-box:hover{background:rgba(79,142,247,0.04)}
-.stat-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease}
-.stat-box:hover::before{transform:scaleX(1)}
-.stat-val{font-family:'Syne',sans-serif;font-size:clamp(44px,5vw,68px);font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.04em;display:block;margin-bottom:8px}
-.stat-label{font-size:14px;color:var(--grey);font-weight:500}
-
-/* WHY */
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:72px}
-.why-card{padding:40px;border-radius:24px;border:1px solid var(--border);background:rgba(255,255,255,0.02);position:relative;overflow:hidden;transition:all 0.3s}
-.why-card::after{content:'';position:absolute;inset:0;background:var(--grad);opacity:0;transition:opacity 0.3s;border-radius:24px;z-index:0}
-.why-card:hover{border-color:rgba(79,142,247,0.3);transform:translateY(-4px)}
-.why-card>*{position:relative;z-index:1}
-.why-icon{width:52px;height:52px;border-radius:16px;background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.2);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:22px}
-.why-card h3{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:12px;letter-spacing:-0.01em}
-.why-card p{font-size:14px;color:var(--grey);line-height:1.7}
-
-/* PRICING */
-#pricing{background:var(--navy2)}
-.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:72px}
-.price-card{border-radius:28px;padding:44px;border:1px solid var(--border);background:rgba(255,255,255,0.025);position:relative;overflow:hidden;transition:all 0.35s}
-.price-card.featured{background:linear-gradient(135deg,rgba(79,142,247,0.1),rgba(139,92,246,0.08));border-color:rgba(79,142,247,0.35)}
-.price-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,0.4)}
-.price-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--grad);border-radius:0 0 12px 12px;padding:6px 20px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em}
-.price-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:6px}
-.price-from{font-size:11px;color:var(--grey);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px}
-.price-amount{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.04em;margin-bottom:28px;line-height:1}
-.price-divider{height:1px;background:var(--border);margin-bottom:24px}
-.price-features{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:32px}
-.price-features li{font-size:13px;color:var(--grey);display:flex;align-items:center;gap:10px}
-.price-features li::before{content:'→';color:var(--blue);font-weight:800;flex-shrink:0}
-.price-cta{width:100%;padding:14px;border-radius:12px;font-size:14px;font-weight:700;cursor:none;transition:all 0.25s;font-family:'Inter',sans-serif}
-.price-cta.outline{background:transparent;border:1px solid rgba(255,255,255,0.12);color:var(--white)}
-.price-cta.outline:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.25)}
-.price-cta.fill{background:var(--grad);border:none;color:#fff;box-shadow:0 8px 24px rgba(79,142,247,0.3)}
-.price-cta.fill:hover{opacity:0.9;box-shadow:0 12px 36px rgba(79,142,247,0.45);transform:translateY(-2px)}
-
-/* TESTIMONIALS MARQUEE */
-#testi{overflow:hidden;padding:80px 0;background:var(--navy)}
-.testi-row{display:flex;gap:20px;animation:marqueeFwd 40s linear infinite;width:max-content}
-.testi-row.reverse{animation:marqueeRev 40s linear infinite}
-@keyframes marqueeFwd{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes marqueeRev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-.testi-card{flex-shrink:0;width:340px;background:rgba(255,255,255,0.025);border:1px solid var(--border);border-radius:20px;padding:28px}
-.testi-text{font-size:14px;line-height:1.7;color:rgba(255,255,255,0.7);margin-bottom:20px;font-style:italic}
-.testi-author{display:flex;align-items:center;gap:12px}
-.testi-avatar{width:36px;height:36px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
-.testi-name{font-size:13px;font-weight:700}
-.testi-role{font-size:11px;color:var(--grey)}
-
-/* FINAL CTA */
-#cta{padding:160px 48px;text-align:center;position:relative;overflow:hidden}
-.cta-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 50%,rgba(139,92,246,0.18) 0%,transparent 70%)}
-#rocket-scene{width:200px;height:200px;margin:0 auto 48px;position:relative;z-index:1}
-.rocket-main{font-size:72px;display:block;animation:rocketFloat 3s ease-in-out infinite;position:relative;z-index:2}
-@keyframes rocketFloat{0%,100%{transform:translateY(0) rotate(-15deg)}50%{transform:translateY(-22px) rotate(-15deg)}}
-.rocket-exhaust{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);display:flex;gap:4px;justify-content:center}
-.exhaust-particle{width:3px;border-radius:99px;background:linear-gradient(to bottom,rgba(79,142,247,0.8),transparent);animation:exhaust 0.6s ease-in-out infinite alternate}
-.exhaust-particle:nth-child(1){height:30px;animation-delay:0s}
-.exhaust-particle:nth-child(2){height:50px;animation-delay:0.1s}
-.exhaust-particle:nth-child(3){height:40px;animation-delay:0.2s}
-.exhaust-particle:nth-child(4){height:60px;animation-delay:0.05s}
-.exhaust-particle:nth-child(5){height:25px;animation-delay:0.15s}
-@keyframes exhaust{from{opacity:0.4;transform:scaleY(0.7)}to{opacity:1;transform:scaleY(1)}}
-.cta-title{font-family:'Syne',sans-serif;font-size:clamp(40px,6vw,80px);font-weight:800;letter-spacing:-0.04em;line-height:1.04;margin-bottom:22px;position:relative;z-index:1}
-.cta-sub{font-size:18px;color:var(--grey);margin-bottom:52px;position:relative;z-index:1}
-.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
-
-/* FOOTER */
-footer{padding:60px 48px 40px;border-top:1px solid var(--border)}
-.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:60px}
-.footer-logo img{height:120px;width:auto;object-fit:contain;filter:brightness(1.1);margin-bottom:16px;display:block}
-.footer-tagline{font-size:13px;color:var(--grey);line-height:1.6;max-width:220px}
-.footer-col h4{font-size:11px;font-weight:800;color:var(--white);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px}
-.footer-col a{display:block;font-size:13px;color:var(--grey);text-decoration:none;margin-bottom:10px;transition:color 0.2s}
-.footer-col a:hover{color:var(--white)}
-.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:32px;border-top:1px solid var(--border);font-size:12px;color:var(--grey)}
-
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
-.reveal.in{opacity:1;transform:none}
-.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity 0.8s ease,transform 0.8s ease}
-.reveal-left.in{opacity:1;transform:none}
-.reveal-right{opacity:0;transform:translateX(40px);transition:opacity 0.8s ease,transform 0.8s ease}
-.reveal-right.in{opacity:1;transform:none}
-
-@media(max-width:900px){
-  #nav{padding:0 20px}
-  .nav-links{display:none}
-  #hero{padding:80px 24px 60px}
-  .section{padding:90px 24px}
-  .services-layout{grid-template-columns:1fr}
-  .lp-cards,.why-grid,.price-grid{grid-template-columns:1fr}
-  .stats-grid{grid-template-columns:1fr 1fr}
-  .footer-top{grid-template-columns:1fr 1fr}
-  #cta{padding:100px 24px}
-  footer{padding:48px 24px 32px}
-}
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"LaunchNexus","legalName":"LaunchNexus Ltd","url":"https://launchnexus.co.uk/","email":"info@launchnexus.co.uk","description":"Digital product studio building personalised CRM systems, websites and apps for organisations and businesses.","address":{"@type":"PostalAddress","streetAddress":"14 Souldern Street","addressLocality":"Watford","postalCode":"WD18 0EU","addressCountry":"GB"},"areaServed":"GB"}
+</script>
 </head>
 <body>
 
-<div class="orb orb-one"></div>
-<div class="orb orb-two"></div>
-<div class="orb orb-three"></div>
-<div id="cur"></div>
-<div id="cur-ring"></div>
-<div id="cur-glow"></div>
-
-<!-- NAV -->
-<nav id="nav">
-  <a href="#" class="nav-logo"><img src="logo.png" alt="LaunchStudios"></a>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#launchpad">Products</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-  </ul>
-  <a href="mailto:hello@launchstudios.co.uk" class="nav-btn">Start a Project →</a>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <canvas id="canvas-bg"></canvas>
-  <div class="hero-content">
-    <div class="hero-tag"><span class="hero-tag-dot"></span> Product Studio · London, UK</div>
-    <h1 class="hero-h1">
-      <span class="line"><span class="word" style="animation-delay:0.1s">We build</span></span>
-      <span class="line"><span class="word grad" style="animation-delay:0.25s">software</span></span>
-      <span class="line"><span class="word" style="animation-delay:0.4s">people love.</span></span>
-    </h1>
-    <p class="hero-sub">From SaaS platforms and mobile apps to AI-powered systems — LaunchStudios turns ambitious ideas into software that actually launches.</p>
-    <div class="hero-btns">
-      <a href="mailto:hello@launchstudios.co.uk" class="btn-glow">🚀 Start Your Project</a>
-      <a href="#launchpad" class="btn-outline">📦 Explore Products</a>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L12 4 L20 20"/><path d="M8 14h8"/></svg>
+      </span>
+      Launch<em>Nexus</em>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="services.html">Services</a>
+      <a href="work.html">Work</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn--primary" href="contact.html">Start a Project</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Menu"><span></span></button>
     </div>
   </div>
-  <div class="hero-scroll">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
+</header>
 
-<!-- MARQUEE -->
-<div class="marquee-section">
-  <div class="marquee-track" id="marquee">
-    <span class="marquee-item"><span class="dot"></span>React & Next.js</span>
-    <span class="marquee-item"><span class="dot"></span>Supabase & PostgreSQL</span>
-    <span class="marquee-item"><span class="dot"></span>OpenAI & Claude AI</span>
-    <span class="marquee-item"><span class="dot"></span>Stripe Payments</span>
-    <span class="marquee-item"><span class="dot"></span>Vercel & AWS</span>
-    <span class="marquee-item"><span class="dot"></span>iOS & Android</span>
-    <span class="marquee-item"><span class="dot"></span>Google Cloud</span>
-    <span class="marquee-item"><span class="dot"></span>Node.js</span>
-    <span class="marquee-item"><span class="dot"></span>TypeScript</span>
-    <span class="marquee-item"><span class="dot"></span>React & Next.js</span>
-    <span class="marquee-item"><span class="dot"></span>Supabase & PostgreSQL</span>
-    <span class="marquee-item"><span class="dot"></span>OpenAI & Claude AI</span>
-    <span class="marquee-item"><span class="dot"></span>Stripe Payments</span>
-    <span class="marquee-item"><span class="dot"></span>Vercel & AWS</span>
-    <span class="marquee-item"><span class="dot"></span>iOS & Android</span>
-    <span class="marquee-item"><span class="dot"></span>Google Cloud</span>
-    <span class="marquee-item"><span class="dot"></span>Node.js</span>
-    <span class="marquee-item"><span class="dot"></span>TypeScript</span>
-  </div>
+<div class="drawer" id="drawer">
+  <a href="services.html">Services</a>
+  <a href="work.html">Work</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a class="btn btn--primary" href="contact.html">Start a Project</a>
 </div>
 
-<!-- SERVICES -->
-<section class="section" id="services">
-  <div class="inner">
-    <div class="reveal">
-      <p class="eyebrow">What We Build</p>
-      <h2 class="s-title">Software for every kind of<br>ambitious organisation.</h2>
-    </div>
-    <div class="services-layout">
-      <div class="services-list reveal-left">
-        <div class="svc-item active" data-svc="0">
-          <span class="svc-num">01</span>
-          <span class="svc-name">SaaS Platforms</span>
-          <span class="svc-arrow">→</span>
-        </div>
-        <div class="svc-item" data-svc="1">
-          <span class="svc-num">02</span>
-          <span class="svc-name">Mobile Apps</span>
-          <span class="svc-arrow">→</span>
-        </div>
-        <div class="svc-item" data-svc="2">
-          <span class="svc-num">03</span>
-          <span class="svc-name">Internal Systems</span>
-          <span class="svc-arrow">→</span>
-        </div>
-        <div class="svc-item" data-svc="3">
-          <span class="svc-num">04</span>
-          <span class="svc-name">AI Automation</span>
-          <span class="svc-arrow">→</span>
-        </div>
-        <div class="svc-item" data-svc="4">
-          <span class="svc-num">05</span>
-          <span class="svc-name">Customer Portals</span>
-          <span class="svc-arrow">→</span>
-        </div>
-        <div class="svc-item" data-svc="5">
-          <span class="svc-num">06</span>
-          <span class="svc-name">White-label Products</span>
-          <span class="svc-arrow">→</span>
-        </div>
-      </div>
-      <div class="svc-panel reveal-right">
-        <div class="svc-card active" data-card="0">
-          <div class="svc-card-glow" style="background:radial-gradient(circle,rgba(79,142,247,0.2),transparent 70%)"></div>
-          <span class="svc-card-icon">⚡</span>
-          <h3 class="svc-card-title">SaaS Platforms</h3>
-          <p class="svc-card-desc">Subscription software that scales from 10 to 10,000 organisations. Multi-tenant architecture, secure data isolation, and built to grow with your customer base — without rebuilding from scratch.</p>
-          <div class="svc-card-tags"><span class="tag">Multi-tenant</span><span class="tag">Subscription billing</span><span class="tag">Role-based access</span><span class="tag">API-first</span></div>
-        </div>
-        <div class="svc-card" data-card="1">
-          <div class="svc-card-glow" style="background:radial-gradient(circle,rgba(34,211,238,0.15),transparent 70%)"></div>
-          <span class="svc-card-icon">📱</span>
-          <h3 class="svc-card-title">Mobile Apps</h3>
-          <p class="svc-card-desc">Native iOS and Android experiences that users actually open every day. Built for real workflows, not just demo videos. Fast, offline-capable, and designed for the people who actually use them.</p>
-          <div class="svc-card-tags"><span class="tag">iOS & Android</span><span class="tag">Offline-first</span><span class="tag">Push notifications</span><span class="tag">App Store launch</span></div>
-        </div>
-        <div class="svc-card" data-card="2">
-          <div class="svc-card-glow" style="background:radial-gradient(circle,rgba(139,92,246,0.2),transparent 70%)"></div>
-          <span class="svc-card-icon">🖥️</span>
-          <h3 class="svc-card-title">Internal Systems</h3>
-          <p class="svc-card-desc">CRMs, dashboards and operations portals that replace the spreadsheet chaos inside growing organisations. Built around your actual process, not a generic template someone else built years ago.</p>
-          <div class="svc-card-tags"><span class="tag">CRM</span><span class="tag">Dashboards</span><span class="tag">Workflows</span><span class="tag">Reporting</span></div>
-        </div>
-        <div class="svc-card" data-card="3">
-          <div class="svc-card-glow" style="background:radial-gradient(circle,rgba(236,72,153,0.15),transparent 70%)"></div>
-          <span class="svc-card-icon">🤖</span>
-          <h3 class="svc-card-title">AI Automation</h3>
-          <p class="svc-card-desc">Replace hours of repetitive admin with intelligent systems. Document generation, smart scheduling, AI customer support, and decision automation — all integrated directly into your existing workflow.</p>
-          <div class="svc-card-tags"><span class="tag">OpenAI</span><span class="tag">Claude AI</span><span class="tag">Automation</span><span class="tag">Document AI</span></div>
-        </div>
-        <div class="svc-card" data-card="4">
-          <div class="svc-card-glow" style="background:radial-gradient(circle,rgba(79,142,247,0.2),transparent 70%)"></div>
-          <span class="svc-card-icon">🔑</span>
-          <h3 class="svc-card-title">Customer Portals</h3>
-          <p class="svc-card-desc">Bookings, messaging, payments and self-service — all in one place, all under your brand. Give your customers the modern digital experience they expect, without building an entire product team.</p>
-          <div class="svc-card-tags"><span class="tag">Bookings</span><span class="tag">Stripe payments</span><span class="tag">Messaging</span><span class="tag">Self-service</span></div>
-        </div>
-        <div class="svc-card" data-card="5">
-          <div class="svc-card-glow" style="background:radial-gradient(circle,rgba(139,92,246,0.2),transparent 70%)"></div>
-          <span class="svc-card-icon">🏷️</span>
-          <h3 class="svc-card-title">White-label Products</h3>
-          <p class="svc-card-desc">Take our proven platforms and make them entirely yours. Your branding, your domain, your app — with LaunchStudios handling all the development, infrastructure and ongoing maintenance behind the scenes.</p>
-          <div class="svc-card-tags"><span class="tag">Custom branding</span><span class="tag">Your domain</span><span class="tag">LaunchSession</span><span class="tag">Full handover</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<main>
 
-<!-- STATS -->
-<section id="stats">
-  <div class="inner">
-    <div class="stats-grid">
-      <div class="stat-box">
-        <span class="stat-val" data-count="4">0</span>
-        <span class="stat-label">Products in production</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-val" data-count="100" data-suffix="+">0</span>
-        <span class="stat-label">Organisations launched</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-val" data-count="5" data-suffix="+">0</span>
-        <span class="stat-label">Years building software</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-val" data-count="48" data-suffix="h">0</span>
-        <span class="stat-label">First prototype delivered</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LAUNCHPAD -->
-<section class="section" id="launchpad">
-  <div class="inner">
-    <div class="lp-header reveal">
-      <div>
-        <p class="eyebrow">LaunchPad</p>
-        <h2 class="s-title">Our products.<br>Already in the wild.</h2>
-      </div>
-      <p class="s-sub" style="margin-bottom:0">We don't just build for clients — we build our own products and grow them alongside you.</p>
-    </div>
-    <div class="lp-cards">
-      <div class="lp-card featured reveal">
-        <div class="lp-card-glow" style="width:260px;height:260px;top:-80px;right:-80px;background:radial-gradient(circle,rgba(79,142,247,0.3),transparent 70%)"></div>
-        <span class="lp-icon">🚀</span>
-        <div class="lp-status live"><span>●</span> Live</div>
-        <div class="lp-name">LaunchSession</div>
-        <p class="lp-desc">The operating system for children's charities and youth organisations. Registers, safeguarding, volunteers, fundraising, case management — all in one beautifully designed platform.</p>
-      </div>
-      <div class="lp-card reveal">
-        <div class="lp-card-glow" style="width:200px;height:200px;top:-60px;right:-60px;background:radial-gradient(circle,rgba(139,92,246,0.25),transparent 70%)"></div>
-        <span class="lp-icon">🐶</span>
-        <div class="lp-status soon"><span>◌</span> Coming Soon</div>
-        <div class="lp-name">LaunchKennel</div>
-        <p class="lp-desc">Boarding and daycare management for modern pet businesses. Digital reports, online bookings, parent portals and automated reminders — built for kennels that want to grow.</p>
-      </div>
-      <div class="lp-card reveal" style="border-style:dashed;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:320px">
-        <span class="lp-icon" style="opacity:0.3;font-size:36px">+</span>
-        <div class="lp-status idea">Your Product</div>
-        <div class="lp-name" style="opacity:0.6;margin-bottom:12px">Let's build it</div>
-        <p class="lp-desc">Have an idea for a SaaS product? Let's scope it, build it and launch it together.</p>
-        <a href="mailto:hello@launchstudios.co.uk" class="btn-glow" style="margin-top:24px;font-size:13px;padding:12px 24px">Get in Touch →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section class="section" id="process">
-  <div class="inner">
-    <div class="reveal" style="margin-bottom:8px">
-      <p class="eyebrow">The Launch Process</p>
-      <h2 class="s-title">From idea to live product,<br>faster than you think.</h2>
-    </div>
-    <p class="process-hint reveal">← Drag to explore →</p>
-    <div class="process-scroll" id="pscroll">
-      <div class="process-card">
-        <span class="p-icon">🔭</span>
-        <div class="p-num">01</div>
-        <div class="p-title">Discover</div>
-        <p class="p-desc">Deep dive into your workflow, users and goals. We map every requirement before writing a single line of code. No assumptions — just listening.</p>
-      </div>
-      <div class="process-card">
-        <span class="p-icon">🎨</span>
-        <div class="p-num">02</div>
-        <div class="p-title">Design</div>
-        <p class="p-desc">High-fidelity prototypes built for your brand. You see exactly what you're getting before we build it — and we iterate until it's right.</p>
-      </div>
-      <div class="process-card">
-        <span class="p-icon">⚡</span>
-        <div class="p-num">03</div>
-        <div class="p-title">Develop</div>
-        <p class="p-desc">Rapid sprints with working software shipped weekly. Constant feedback loops — not a big reveal months later when it's too late to change direction.</p>
-      </div>
-      <div class="process-card">
-        <span class="p-icon">🚀</span>
-        <div class="p-num">04</div>
-        <div class="p-title">Launch</div>
-        <p class="p-desc">Full deployment, testing, training and onboarding. We don't hand over a zip file and disappear. We go live with you and make sure everything works.</p>
-      </div>
-      <div class="process-card">
-        <span class="p-icon">📈</span>
-        <div class="p-num">05</div>
-        <div class="p-title">Scale</div>
-        <p class="p-desc">Ongoing support, new features and growth strategy. We're your long-term technical partner — not a contractor you never hear from again after the invoice.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY -->
-<section class="section" style="background:var(--navy2)">
-  <div class="inner">
-    <div class="reveal">
-      <p class="eyebrow">Why LaunchStudios</p>
-      <h2 class="s-title">We think like founders,<br>not just developers.</h2>
-    </div>
-    <div class="why-grid">
-      <div class="why-card reveal">
-        <div class="why-icon">🎯</div>
-        <h3>Built Around You</h3>
-        <p>Every project starts with your workflow — not a template. We map your real processes, talk to your actual users, and build something that fits perfectly.</p>
-      </div>
-      <div class="why-card reveal">
-        <div class="why-icon">⚡</div>
-        <h3>Rapid Delivery</h3>
-        <p>Working prototypes in days, not months. We ship fast, get feedback early, and iterate constantly — so you're never waiting months for something that might not land.</p>
-      </div>
-      <div class="why-card reveal">
-        <div class="why-icon">🤝</div>
-        <h3>Long-Term Partners</h3>
-        <p>We don't disappear after launch. We're your ongoing technical team — maintaining, evolving and scaling your product as your organisation grows.</p>
-      </div>
-      <div class="why-card reveal">
-        <div class="why-icon">🔒</div>
-        <h3>Security First</h3>
-        <p>Row-level security, encrypted data, GDPR compliance and regular audits built in from day one — not bolted on as an afterthought when something goes wrong.</p>
-      </div>
-      <div class="why-card reveal">
-        <div class="why-icon">🌐</div>
-        <h3>Full Stack</h3>
-        <p>Frontend, backend, mobile, AI, DevOps, design — we handle the entire stack. No coordination between five different agencies, no cracks to fall through.</p>
-      </div>
-      <div class="why-card reveal">
-        <div class="why-icon">💡</div>
-        <h3>Product Thinking</h3>
-        <p>We don't just build what you ask for — we challenge assumptions, improve ideas, and push back when something won't work. Because we care about the outcome.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section id="testi">
-  <div style="padding:0 48px 40px;max-width:1200px;margin:0 auto" class="reveal">
-    <p class="eyebrow">What Clients Say</p>
-    <h2 class="s-title">Don't just take<br>our word for it.</h2>
-  </div>
-  <div style="overflow:hidden;margin-bottom:20px">
-    <div class="testi-row">
-      <div class="testi-card"><p class="testi-text">"LaunchStudios built our entire charity management system in weeks. The quality is incredible — it feels like enterprise software but actually works the way we do."</p><div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Sarah K.</div><div class="testi-role">Director, Youth Charity</div></div></div></div>
-      <div class="testi-card"><p class="testi-text">"From idea to live product in under two months. The team understood our workflow instantly and the end result is exactly what we imagined — only better."</p><div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Marcus T.</div><div class="testi-role">CEO, Sports Organisation</div></div></div></div>
-      <div class="testi-card"><p class="testi-text">"We've worked with agencies before and always been disappointed. LaunchStudios is different — they actually care about whether the product succeeds."</p><div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Amara O.</div><div class="testi-role">Operations Manager</div></div></div></div>
-      <div class="testi-card"><p class="testi-text">"The AI automation they built saves our team 15 hours a week. The ROI was immediate. Best technology investment we've ever made."</p><div class="testi-author"><div class="testi-avatar">J</div><div><div class="testi-name">James R.</div><div class="testi-role">Founder, SaaS Startup</div></div></div></div>
-      <div class="testi-card"><p class="testi-text">"LaunchStudios built our entire charity management system in weeks. The quality is incredible — it feels like enterprise software but actually works the way we do."</p><div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Sarah K.</div><div class="testi-role">Director, Youth Charity</div></div></div></div>
-      <div class="testi-card"><p class="testi-text">"From idea to live product in under two months. The team understood our workflow instantly and the end result is exactly what we imagined — only better."</p><div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Marcus T.</div><div class="testi-role">CEO, Sports Organisation</div></div></div></div>
-      <div class="testi-card"><p class="testi-text">"We've worked with agencies before and always been disappointed. LaunchStudios is different — they actually care about whether the product succeeds."</p><div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Amara O.</div><div class="testi-role">Operations Manager</div></div></div></div>
-      <div class="testi-card"><p class="testi-text">"The AI automation they built saves our team 15 hours a week. The ROI was immediate. Best technology investment we've ever made."</p><div class="testi-author"><div class="testi-avatar">J</div><div><div class="testi-name">James R.</div><div class="testi-role">Founder, SaaS Startup</div></div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="section" id="pricing">
-  <div class="inner">
-    <div class="reveal">
-      <p class="eyebrow">Pricing</p>
-      <h2 class="s-title">Transparent pricing.<br>No surprises.</h2>
-      <p class="s-sub">Every project is scoped individually. These are starting points — book a free discovery call and we'll give you an exact quote within 48 hours.</p>
-    </div>
-    <div class="price-grid">
-      <div class="price-card reveal">
-        <div class="price-name">MVP</div>
-        <div class="price-from">Starting from</div>
-        <div class="price-amount">£2,500</div>
-        <div class="price-divider"></div>
-        <ul class="price-features">
-          <li>Core feature set</li>
-          <li>Web application</li>
-          <li>Supabase backend</li>
-          <li>Authentication & roles</li>
-          <li>4–6 week delivery</li>
-          <li>1 month post-launch support</li>
-        </ul>
-        <button class="price-cta outline" onclick="window.location='mailto:hello@launchstudios.co.uk?subject=MVP Enquiry'">Book Discovery Call</button>
-      </div>
-      <div class="price-card featured reveal">
-        <div class="price-badge">Most Popular</div>
-        <div class="price-name">Business Platform</div>
-        <div class="price-from">Starting from</div>
-        <div class="price-amount">£5,000</div>
-        <div class="price-divider"></div>
-        <ul class="price-features">
-          <li>Full SaaS platform</li>
-          <li>Web + mobile ready</li>
-          <li>Multi-tenant architecture</li>
-          <li>Stripe payments & subscriptions</li>
-          <li>AI features available</li>
-          <li>Admin dashboard</li>
-          <li>3 months post-launch support</li>
-        </ul>
-        <button class="price-cta fill" onclick="window.location='mailto:hello@launchstudios.co.uk?subject=Business Platform Enquiry'">Book Discovery Call</button>
-      </div>
-      <div class="price-card reveal">
-        <div class="price-name">Enterprise</div>
-        <div class="price-from">Pricing is</div>
-        <div class="price-amount" style="font-size:40px;margin-bottom:28px">Custom</div>
-        <div class="price-divider"></div>
-        <ul class="price-features">
-          <li>Bespoke architecture</li>
-          <li>Multiple platforms</li>
-          <li>Dedicated development team</li>
-          <li>SLA guarantees</li>
-          <li>White-label available</li>
-          <li>Ongoing retainer</li>
-        </ul>
-        <button class="price-cta outline" onclick="window.location='mailto:hello@launchstudios.co.uk?subject=Enterprise Enquiry'">Let's Talk</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section id="cta">
-  <div class="cta-bg"></div>
-  <div id="rocket-scene">
-    <span class="rocket-main">🚀</span>
-    <div class="rocket-exhaust">
-      <div class="exhaust-particle"></div>
-      <div class="exhaust-particle"></div>
-      <div class="exhaust-particle"></div>
-      <div class="exhaust-particle"></div>
-      <div class="exhaust-particle"></div>
-    </div>
-  </div>
-  <h2 class="cta-title reveal">Ready to launch<br>something incredible?</h2>
-  <p class="cta-sub reveal">Discovery call is free. No commitment. Just a conversation about your idea.</p>
-  <div class="cta-btns reveal">
-    <a href="mailto:hello@launchstudios.co.uk" class="btn-glow" style="font-size:16px;padding:18px 38px">🚀 Start Your Project</a>
-    <a href="mailto:hello@launchstudios.co.uk?subject=Discovery Call" class="btn-outline" style="font-size:16px;padding:18px 38px">📞 Book a Call</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-top inner">
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
     <div>
-      <div class="footer-logo"><img src="logo.png" alt="LaunchStudios"></div>
-      <p class="footer-tagline">Beautiful software, built to launch. We turn ambitious ideas into products people love.</p>
+      <span class="pill rise"><i></i> Digital product studio · Watford, UK</span>
+      <h1 class="rise">Digital tools built around <em>your organisation.</em></h1>
+      <p class="lede rise">Custom CRMs, websites and apps designed around the way you actually work. From replacing spreadsheets to launching complete platforms, we turn workflows and ideas into software that fits.</p>
+      <div class="btn-row rise">
+        <a class="btn btn--primary" href="contact.html">Start a Project</a>
+        <a class="btn btn--ghost" href="services.html">Explore Our Services</a>
+      </div>
     </div>
-    <div class="footer-col">
-      <h4>Services</h4>
-      <a href="#services">SaaS Platforms</a>
-      <a href="#services">Mobile Apps</a>
-      <a href="#services">Internal Systems</a>
-      <a href="#services">AI Automation</a>
-      <a href="#services">White-label</a>
-    </div>
-    <div class="footer-col">
-      <h4>Products</h4>
-      <a href="https://launchsession.co.uk" target="_blank">LaunchSession</a>
-      <a href="#">LaunchKennel</a>
-      <a href="#">Your Product</a>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <a href="#process">Our Process</a>
-      <a href="#pricing">Pricing</a>
-      <a href="mailto:hello@launchstudios.co.uk">Contact Us</a>
-      <a href="mailto:hello@launchstudios.co.uk">hello@launchstudios.co.uk</a>
+
+    <!-- Product mockups: pure CSS/SVG, no images to load -->
+    <div class="stage rise" aria-hidden="true">
+      <div class="mock float">
+        <div class="mock-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">yourorganisation.app</span></div>
+        <div class="dash">
+          <div class="dash-side"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+          <div class="dash-main">
+            <div class="kpis">
+              <div class="kpi"><b>248</b><span>Members</span></div>
+              <div class="kpi"><b>36</b><span>Sessions</span></div>
+              <div class="kpi"><b>12</b><span>Forms due</span></div>
+            </div>
+            <div class="chart">
+              <i style="height:38%;animation-delay:.05s"></i><i style="height:62%;animation-delay:.12s"></i>
+              <i style="height:47%;animation-delay:.19s"></i><i style="height:78%;animation-delay:.26s"></i>
+              <i style="height:56%;animation-delay:.33s"></i><i style="height:88%;animation-delay:.4s"></i>
+              <i style="height:70%;animation-delay:.47s"></i>
+            </div>
+            <div class="rows">
+              <div class="row"><span class="av"></span><span class="l1"></span><span class="st">Paid</span></div>
+              <div class="row"><span class="av"></span><span class="l1"></span><span class="l2"></span></div>
+              <div class="row"><span class="av"></span><span class="l1"></span><span class="l2"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chip float-2">
+        <span class="ring"></span>
+        <span><b>Admin time</b><span>Down, not up</span></span>
+      </div>
+
+      <div class="phone float-2">
+        <div class="phone-screen">
+          <div class="notch"></div>
+          <p class="mock-title">Today</p>
+          <div class="sub">Wed · 4 tasks</div>
+          <div class="mini"><span class="b"></span><span><span class="t1"></span><span class="t2"></span></span></div>
+          <div class="mini"><span class="b"></span><span><span class="t1"></span><span class="t2"></span></span></div>
+          <div class="mini"><span class="b"></span><span><span class="t1"></span><span class="t2"></span></span></div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="footer-bottom inner">
-    <span>© 2026 LaunchStudios Ltd. All rights reserved.</span>
-    <span>Beautiful software. Built to launch.</span>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section class="section section--mist">
+  <div class="wrap">
+    <div class="head rise">
+      <span class="eyebrow">The problem</span>
+      <h2>Your systems should make work easier.</h2>
+      <p class="lede">Most organisations don't set out to run on six disconnected tools. It just happens — a spreadsheet here, a form there, a group chat holding it together.</p>
+    </div>
+
+    <div class="split rise">
+      <div class="scatter">
+        <span>Spreadsheets</span><span>Email threads</span><span>Paper forms</span>
+        <span>WhatsApp</span><span>Shared drive</span><span>Calendar</span>
+        <span>Old database</span><span>Sticky notes</span>
+      </div>
+      <div class="arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </div>
+      <div class="unified">
+        <h3>One connected system</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Information entered once</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Everyone sees the same picture</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Less chasing, less duplication</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Built to match how you work</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="head rise">
+      <span class="eyebrow">What we build</span>
+      <h2>Three ways we help.</h2>
+      <p class="lede">Whether you need to replace a tangle of spreadsheets, put a proper website behind your organisation, or turn an idea into a working product.</p>
+    </div>
+
+    <div class="grid grid-3">
+      <article class="card card--hover rise">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9h18M9 9v12"/></svg>
+        </span>
+        <h3>Personalised CRM Systems</h3>
+        <p><strong>Your organisation. Your workflow. Your CRM.</strong></p>
+        <p>We design custom CRM and management systems around the way your organisation actually operates — not the other way round.</p>
+        <div class="taglist">
+          <span class="tag">Clients</span><span class="tag">Staff</span><span class="tag">Bookings</span>
+          <span class="tag">Payments</span><span class="tag">Forms</span><span class="tag">Reporting</span>
+          <span class="tag">Permissions</span>
+        </div>
+        <p style="margin-top:22px"><a class="link-arrow" href="services-crm.html">Explore Custom CRMs <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></p>
+      </article>
+
+      <article class="card card--hover rise">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.9 2.6 15.1 0 18M12 3c-2.6 2.9-2.6 15.1 0 18"/></svg>
+        </span>
+        <h3>Websites</h3>
+        <p><strong>Websites built to do more.</strong></p>
+        <p>Modern, responsive websites designed around your brand, your audience and what you need visitors to actually do.</p>
+        <div class="taglist">
+          <span class="tag">Charity sites</span><span class="tag">Business sites</span><span class="tag">Bookings</span>
+          <span class="tag">Enquiries</span><span class="tag">Landing pages</span><span class="tag">SEO foundations</span>
+        </div>
+        <p style="margin-top:22px"><a class="link-arrow" href="services-websites.html">Explore Websites <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></p>
+      </article>
+
+      <article class="card card--hover rise">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.6"/><path d="M11 18.5h2"/></svg>
+        </span>
+        <h3>Web &amp; Mobile Apps</h3>
+        <p><strong>Turn your idea into a product.</strong></p>
+        <p>We design and develop intuitive web and mobile applications for businesses, organisations and brand-new ideas.</p>
+        <div class="taglist">
+          <span class="tag">Mobile apps</span><span class="tag">Client portals</span><span class="tag">Staff platforms</span>
+          <span class="tag">Dashboards</span><span class="tag">Membership</span><span class="tag">MVPs</span>
+        </div>
+        <p style="margin-top:22px"><a class="link-arrow" href="services-apps.html">Explore Apps <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUILT AROUND YOU ============ -->
+<section class="section section--ink">
+  <div class="wrap">
+    <div class="head rise">
+      <span class="eyebrow">Built around you</span>
+      <h2>No two organisations work exactly the same.</h2>
+      <p class="lede">So we don't believe every organisation should be using exactly the same software. We take the time to understand how yours works before designing the technology around it.</p>
+    </div>
+
+    <ol class="steps rise">
+      <li class="step"><div><h3>Understand</h3><p>We learn how your organisation currently operates — including the spreadsheets, the paper and the workarounds nobody mentions in the first meeting.</p></div></li>
+      <li class="step"><div><h3>Simplify</h3><p>We identify the unnecessary admin, the duplicated data entry and the places where information gets lost between systems.</p></div></li>
+      <li class="step"><div><h3>Design</h3><p>We design a system around your workflow — the screens your team will use every day, in the order they actually use them.</p></div></li>
+      <li class="step"><div><h3>Build</h3><p>We turn the design into a working digital product, with your feedback shaping it while changes are still cheap.</p></div></li>
+      <li class="step"><div><h3>Launch</h3><p>We help you introduce it into your organisation — data migrated, staff trained, and someone on the end of the phone.</p></div></li>
+      <li class="step"><div><h3>Improve</h3><p>Your system keeps evolving as your organisation grows. New requirements are additions, not rebuilds.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ SELECTED WORK ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="head rise">
+      <span class="eyebrow">Selected work</span>
+      <h2>Systems in daily use.</h2>
+      <p class="lede">A small, real portfolio — software that organisations rely on to run their week.</p>
+    </div>
+
+    <div class="grid" style="gap:22px">
+      <article class="card work-card rise">
+        <div class="work-body">
+          <span class="kind">CRM · Multi-tenant platform</span>
+          <h3>LaunchSession</h3>
+          <p style="margin-top:14px;color:var(--muted)">A management platform for youth organisations, charities and sports clubs — each one gets their own branded system rather than a shared, generic tool.</p>
+          <ul class="built">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Live registers and attendance</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Consent, medical and safeguarding records</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Volunteer rotas and staff permissions</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Forms, fundraising and parent portals</li>
+          </ul>
+          <p style="margin-top:24px"><a class="link-arrow" href="work.html">Read the case study <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></p>
+        </div>
+        <div class="work-visual" aria-hidden="true">
+          <div class="mock" style="width:100%">
+            <div class="mock-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">app.launchsession.co.uk</span></div>
+            <div class="dash">
+              <div class="dash-side"><i class="on"></i><i></i><i></i><i></i></div>
+              <div class="dash-main">
+                <div class="kpis">
+                  <div class="kpi"><b>18</b><span>Present</span></div>
+                  <div class="kpi"><b>3</b><span>Absent</span></div>
+                  <div class="kpi"><b>6</b><span>Staff</span></div>
+                </div>
+                <div class="rows">
+                  <div class="row"><span class="av"></span><span class="l1"></span><span class="st">In</span></div>
+                  <div class="row"><span class="av"></span><span class="l1"></span><span class="st">In</span></div>
+                  <div class="row"><span class="av"></span><span class="l1"></span><span class="l2"></span></div>
+                  <div class="row"><span class="av"></span><span class="l1"></span><span class="l2"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="grid grid-2">
+        <article class="card card--hover rise">
+          <span class="kind">Website · Bookings</span>
+          <h3>JMS VIP Services</h3>
+          <p>A luxury property site with viewing requests, member accounts and checkout — installable as an app on any device.</p>
+        </article>
+        <article class="card card--hover rise">
+          <span class="kind">Web app · Education</span>
+          <h3>Revision Box</h3>
+          <p>A GCSE revision app built for one student and then opened up — flashcards, timed practice and progress tracking.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section section--mist">
+  <div class="wrap">
+    <div class="head rise">
+      <span class="eyebrow">How it works</span>
+      <h2>From idea to launch.</h2>
+      <p class="lede">Five stages, and you know what happens at each one before we start.</p>
+    </div>
+    <ol class="steps rise">
+      <li class="step"><div><h3>Discovery</h3><p>What your organisation does, what you're running on today, what's getting in the way, and who actually has to use the thing.</p></div></li>
+      <li class="step"><div><h3>Blueprint</h3><p>We map your workflows, user journeys and the information behind them, then agree the scope in writing before any code is written.</p></div></li>
+      <li class="step"><div><h3>Design</h3><p>Interfaces, dashboards and mobile screens designed to your brand. You see exactly what you're getting while it's still easy to change.</p></div></li>
+      <li class="step"><div><h3>Build</h3><p>We develop the working product, sharing progress on a private link so nothing is a surprise at the end.</p></div></li>
+      <li class="step"><div><h3>Launch &amp; support</h3><p>Testing, data migration, training and go-live — then ongoing support as your requirements change.</p></div></li>
+    </ol>
+    <div class="btn-row rise"><a class="btn btn--ghost" href="how-it-works.html">See the full process</a></div>
+  </div>
+</section>
+
+<!-- ============ WHO WE WORK WITH ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="head rise">
+      <span class="eyebrow">Who we work with</span>
+      <h2>Built for organisations doing real work.</h2>
+    </div>
+    <div class="grid grid-2">
+      <article class="card rise"><h3>Charities &amp; community organisations</h3><p>Simplify operations and spend less of the week on administration — with the safeguarding and consent requirements built in, not bolted on.</p></article>
+      <article class="card rise"><h3>Service businesses</h3><p>Manage customers, bookings, projects and staff in one place, so nothing depends on one person remembering it.</p></article>
+      <article class="card rise"><h3>Growing businesses</h3><p>Replace the spreadsheet that's held together with formulas nobody understands with a system designed to scale.</p></article>
+      <article class="card rise"><h3>Startups &amp; founders</h3><p>Turn an idea into a working digital product you can put in front of real users.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOUND FAMILIAR ============ -->
+<section class="section section--ink">
+  <div class="wrap">
+    <div class="head center rise">
+      <span class="eyebrow">Do you need a custom system?</span>
+      <h2>Sound familiar?</h2>
+    </div>
+    <div class="familiar rise">
+      <span>We're running everything through spreadsheets.</span>
+      <span>Our systems don't speak to each other.</span>
+      <span>We're entering the same information more than once.</span>
+      <span>Our existing CRM doesn't fit the way we work.</span>
+      <span>Staff struggle to find information.</span>
+      <span>We want an app but don't know where to start.</span>
+      <span>Our website needs replacing.</span>
+    </div>
+    <div class="btn-row rise" style="justify-content:center">
+      <a class="btn btn--primary" href="contact.html">Talk to LaunchNexus</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY / COMPARISON ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="head rise">
+      <span class="eyebrow">Why LaunchNexus</span>
+      <h2>Software that adapts to you.</h2>
+    </div>
+
+    <div class="compare rise" style="margin-bottom:clamp(36px,5vw,56px)">
+      <div class="col-off">
+        <h3>Off-the-shelf software</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg> Your organisation adapts to the software</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg> Generic functionality</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg> Paying for features you don't use</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg> Limited flexibility</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg> Multiple disconnected tools</li>
+        </ul>
+      </div>
+      <div class="col-lnx">
+        <h3>LaunchNexus</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Software adapts to your organisation</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Functionality built around you</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Only what you need</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Designed to evolve</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg> Connected workflows</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid grid-3">
+      <article class="card rise"><h3>Built around you</h3><p>Every project starts with your workflow, not a template we've used before.</p></article>
+      <article class="card rise"><h3>Simple by design</h3><p>Powerful systems should still be easy enough that a new volunteer can use them on their first day.</p></article>
+      <article class="card rise"><h3>One partner</h3><p>Design, development and launch handled together — no coordinating three suppliers.</p></article>
+      <article class="card rise"><h3>Designed to grow</h3><p>Your system can change as your requirements do, without starting again.</p></article>
+      <article class="card rise"><h3>Real understanding</h3><p>We begin with how you work, then choose the technology — not the other way round.</p></article>
+      <article class="card rise"><h3>Long-term thinking</h3><p>Build something useful today without limiting what's possible tomorrow.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="section cta-band">
+  <div class="wrap">
+    <div class="rise">
+      <h2 class="center" style="max-width:18ch">Have something you want to improve, replace or build?</h2>
+      <p class="lede center" style="margin-top:22px">Tell us how your organisation works today and what you'd like to make better. No commitment — just a conversation about what's possible.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="contact.html">Start a Project</a>
+        <a class="btn btn--ghost" href="mailto:info@launchnexus.co.uk">Talk to Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html">
+          <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L12 4 L20 20"/><path d="M8 14h8"/></svg></span>
+          Launch<em>Nexus</em>
+        </a>
+        <p style="max-width:34ch;font-size:15px">Digital tools built around your organisation.</p>
+        <p style="font-size:15px;margin-top:14px"><a href="mailto:info@launchnexus.co.uk">info@launchnexus.co.uk</a></p>
+      </div>
+      <div>
+        <h2 class="foot-h">Services</h2>
+        <ul>
+          <li><a href="services-crm.html">Custom CRM</a></li>
+          <li><a href="services-websites.html">Websites</a></li>
+          <li><a href="services-apps.html">Apps</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Company</h2>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Legal</h2>
+        <ul>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-note">
+      <p>© <span data-year>2026</span> LaunchNexus Ltd. Registered in England &amp; Wales, company no. 17333693.</p>
+      <p>14 Souldern Street, Watford, WD18 0EU</p>
+    </div>
   </div>
 </footer>
 
-<script>
-// ── CURSOR ──
-const cur = document.getElementById('cur')
-const ring = document.getElementById('cur-ring')
-const glow = document.getElementById('cur-glow')
-let mx = 0, my = 0, rx = 0, ry = 0
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY
-  cur.style.left = mx - 4 + 'px'
-  cur.style.top  = my - 4 + 'px'
-  glow.style.left = mx + 'px'
-  glow.style.top  = my + 'px'
-})
-function lerp(a,b,t){return a+(b-a)*t}
-function animRing(){
-  rx = lerp(rx, mx, 0.12); ry = lerp(ry, my, 0.12)
-  ring.style.left = rx + 'px'; ring.style.top = ry + 'px'
-  requestAnimationFrame(animRing)
-}
-animRing()
-document.querySelectorAll('a,button,.svc-item,.process-card,.lp-card,.why-card,.price-card,.stat-box').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    ring.style.width = '70px'; ring.style.height = '70px'
-    ring.style.borderColor = 'rgba(79,142,247,0.8)'
-    cur.style.transform = 'scale(2)'
-  })
-  el.addEventListener('mouseleave', () => {
-    ring.style.width = '40px'; ring.style.height = '40px'
-    ring.style.borderColor = 'rgba(79,142,247,0.5)'
-    cur.style.transform = 'scale(1)'
-  })
-})
-
-// ── NAV ──
-const nav = document.getElementById('nav')
-window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 60))
-
-// ── CANVAS HERO ──
-const canvas = document.getElementById('canvas-bg')
-const ctx = canvas.getContext('2d')
-let W, H, particles = []
-function resize(){ W = canvas.width = innerWidth; H = canvas.height = innerHeight }
-resize(); window.addEventListener('resize', resize)
-class Particle {
-  constructor(){this.reset()}
-  reset(){
-    this.x = Math.random()*W; this.y = Math.random()*H
-    this.vx = (Math.random()-0.5)*0.3; this.vy = (Math.random()-0.5)*0.3
-    this.r = Math.random()*1.5+0.3
-    this.alpha = Math.random()*0.6+0.1
-    this.color = Math.random()>0.6 ? '#4F8EF7' : Math.random()>0.5 ? '#8B5CF6' : '#fff'
-  }
-  update(){
-    this.x += this.vx; this.y += this.vy
-    if(this.x<0||this.x>W||this.y<0||this.y>H) this.reset()
-  }
-  draw(){
-    ctx.beginPath()
-    ctx.arc(this.x,this.y,this.r,0,Math.PI*2)
-    ctx.fillStyle = this.color
-    ctx.globalAlpha = this.alpha
-    ctx.fill()
-    ctx.globalAlpha = 1
-  }
-}
-for(let i=0;i<180;i++) particles.push(new Particle())
-
-// Mouse interaction with particles
-let mouseX = W/2, mouseY = H/2
-document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY })
-
-let lineAngle = 0
-function drawFrame(){
-  ctx.clearRect(0,0,W,H)
-  // Draw connections near mouse
-  for(let i=0;i<particles.length;i++){
-    const dx = particles[i].x-mouseX, dy = particles[i].y-mouseY
-    const dist = Math.sqrt(dx*dx+dy*dy)
-    if(dist < 150){
-      for(let j=i+1;j<particles.length;j++){
-        const dx2 = particles[i].x-particles[j].x, dy2 = particles[i].y-particles[j].y
-        const d2 = Math.sqrt(dx2*dx2+dy2*dy2)
-        if(d2 < 80){
-          ctx.beginPath()
-          ctx.moveTo(particles[i].x,particles[i].y)
-          ctx.lineTo(particles[j].x,particles[j].y)
-          ctx.strokeStyle = `rgba(79,142,247,${0.3*(1-d2/80)*(1-dist/150)})`
-          ctx.lineWidth = 0.8
-          ctx.stroke()
-        }
-      }
-    }
-    particles[i].update()
-    particles[i].draw()
-  }
-  requestAnimationFrame(drawFrame)
-}
-drawFrame()
-
-// ── SERVICES INTERACTION ──
-const svcItems = document.querySelectorAll('.svc-item')
-const svcCards = document.querySelectorAll('.svc-card')
-svcItems.forEach(item => {
-  item.addEventListener('click', () => {
-    const idx = item.dataset.svc
-    svcItems.forEach(i => i.classList.remove('active'))
-    svcCards.forEach(c => c.classList.remove('active'))
-    item.classList.add('active')
-    document.querySelector(`.svc-card[data-card="${idx}"]`).classList.add('active')
-  })
-})
-
-// ── PROCESS DRAG SCROLL ──
-const ps = document.getElementById('pscroll')
-let isDown=false, startX, scrollLeft
-ps.addEventListener('mousedown', e => { isDown=true; ps.classList.add('dragging'); startX=e.pageX-ps.offsetLeft; scrollLeft=ps.scrollLeft })
-ps.addEventListener('mouseleave', () => { isDown=false; ps.classList.remove('dragging') })
-ps.addEventListener('mouseup', () => { isDown=false; ps.classList.remove('dragging') })
-ps.addEventListener('mousemove', e => { if(!isDown)return; e.preventDefault(); const x=e.pageX-ps.offsetLeft; ps.scrollLeft=scrollLeft-(x-startX)*1.5 })
-
-// ── SCROLL REVEAL ──
-const ro = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target) } }), {threshold:0.12})
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach((el,i) => {
-  el.style.transitionDelay = (i%4)*0.08 + 's'
-  ro.observe(el)
-})
-
-// ── COUNTERS ──
-const co = new IntersectionObserver(es => es.forEach(e => {
-  if(!e.isIntersecting) return
-  const el = e.target
-  const target = parseInt(el.dataset.count)
-  const suffix = el.dataset.suffix || '+'
-  let n = 0; const step = target/50
-  const t = setInterval(()=>{ n=Math.min(n+step,target); el.textContent=Math.floor(n)+suffix; if(n>=target)clearInterval(t) },30)
-  co.unobserve(el)
-}), {threshold:0.5})
-document.querySelectorAll('[data-count]').forEach(el => co.observe(el))
-</script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

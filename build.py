@@ -4,9 +4,25 @@
 Every page shares one header/footer here so the shell can't drift between
 pages. Run `python3 build.py` from the repo root after editing.
 """
-import os, re
+import os, re, hashlib
 
 SITE = "https://launchnexus.co.uk/"
+
+
+def asset_version(*paths):
+    """Short hash of the shared assets. Appended to their URLs so a deploy
+    always busts the cache — the filenames themselves never change, and
+    without this a returning visitor keeps last week's CSS."""
+    h = hashlib.md5()
+    root = os.path.dirname(os.path.abspath(__file__))
+    for p in paths:
+        full = os.path.join(root, p)
+        if os.path.exists(full):
+            h.update(open(full, "rb").read())
+    return h.hexdigest()[:10]
+
+
+VER = asset_version("assets/site.css", "assets/site.js")
 
 NAV = [
     ("services.html", "Services"),
@@ -60,7 +76,7 @@ def shell(page, body):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v={VER}">
 </head>
 <body>
 
@@ -116,7 +132,7 @@ def shell(page, body):
   </div>
 </footer>
 {extra_js}
-<script src="assets/site.js" defer></script>
+<script src="assets/site.js?v={VER}" defer></script>
 </body>
 </html>
 """
@@ -872,6 +888,15 @@ def main():
         with open(os.path.join(root, page["file"]), "w", encoding="utf-8") as fh:
             fh.write(html)
         print("wrote", page["file"], len(html), "bytes")
+
+    # keep index.html (hand-written) on the same asset version
+    idx = os.path.join(root, "index.html")
+    if os.path.exists(idx):
+        html = open(idx, encoding="utf-8").read()
+        html = re.sub(r'assets/site\.css(\?v=[a-f0-9]+)?', 'assets/site.css?v=%s' % VER, html)
+        html = re.sub(r'assets/site\.js(\?v=[a-f0-9]+)?', 'assets/site.js?v=%s' % VER, html)
+        open(idx, "w", encoding="utf-8").write(html)
+        print("stamped index.html with asset version", VER)
 
     # sitemap
     urls = ["index.html"] + [p["file"] for p in PAGES if not p.get("noindex")]

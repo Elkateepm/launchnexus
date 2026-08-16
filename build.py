@@ -167,6 +167,21 @@ def cta_band(heading, text, primary=("contact.html", "Start a Project"), seconda
 </section>"""
 
 
+def shot(filename, alt, caption, fallback):
+    """Render a real screenshot if it exists in assets/work/, else fall back to
+    the CSS mockup. Lets screenshots be dropped in without touching markup."""
+    root = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(root, "assets", "work", filename)
+    if not os.path.exists(path):
+        return fallback
+    return (
+        '<figure class="shot">'
+        '<img src="assets/work/%s" alt="%s" loading="lazy" decoding="async">'
+        '<figcaption>%s</figcaption>'
+        '</figure>' % (filename, alt, caption)
+    )
+
+
 def module(title, text):
     return f'<div class="module"><h3>{title}</h3><p>{text}</p></div>'
 
@@ -451,7 +466,10 @@ WORK = page_hero(
           </ul>
         </div>
         <div>
-          <div class="mock" style="width:100%">
+""" + shot("launchsession-register.png",
+        "The LaunchSession live register, showing attendance being marked for a session",
+        "LaunchSession live register. Demo organisation with sample data.",
+        '''          <div class="mock" style="width:100%">
             <div class="mock-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="url">app.launchsession.co.uk</span></div>
             <div class="dash">
               <div class="dash-side"><i class="on"></i><i></i><i></i><i></i><i></i></div>
@@ -472,8 +490,7 @@ WORK = page_hero(
                 </div>
               </div>
             </div>
-          </div>
-          <p class="form-note" style="text-align:center">Interface shown with sample data.</p>
+          </div><p class="form-note" style="text-align:center">Interface shown with sample data.</p>''') + """
         </div>
       </div>
     </article>

@@ -64,6 +64,8 @@ def shell(page, body):
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
+
 <header class="site-header">
   <div class="wrap nav">
     <a class="brand" href="index.html">{MARK}</a>
@@ -75,9 +77,9 @@ def shell(page, body):
   </div>
 </header>
 
-<div class="drawer" id="drawer">{drawer}<a class="btn btn--primary" href="contact.html">Start a Project</a></div>
+<nav class="drawer" id="drawer" aria-label="Mobile">{drawer}<a class="btn btn--primary" href="contact.html">Start a Project</a></nav>
 
-<main>
+<main id="main">
 {body}
 </main>
 
@@ -656,7 +658,7 @@ CONTACT = page_hero(
 <section class="section">
   <div class="wrap">
     <div class="grid grid-2" style="gap:clamp(30px,4vw,52px);align-items:start">
-      <form class="form rise" id="enquiry-form" novalidate>
+      <form class="form rise" id="enquiry-form" action="/api/enquiry" method="post">
         <div class="field">
           <label for="name_field">Your name</label>
           <input id="name_field" name="name_field" type="text" autocomplete="name" required>

@@ -75,3 +75,20 @@ same lockup with the navy swapped for white, for the dark footer. Both are
 quantised for size. Favicons, the Apple touch icon and the social card image
 are generated from the same source. The full-resolution original is not in the
 repo — keep it somewhere safe.
+
+## Abuse controls on /api/enquiry
+
+- 20KB request body cap, checked before parsing.
+- 5 submissions per IP per 10 minutes, held in memory. Serverless instances are
+  ephemeral and run in parallel, so this throttles casual abuse but is not a
+  hard ceiling. Put Vercel's firewall in front of the route if that's needed.
+- Honeypot field; bot submissions get a 200 and are discarded.
+- The enquiries table has RLS enabled with **no policies**. Only the
+  service-role key used server-side can write to it. Do not add an anon insert
+  policy — it would let anyone bypass every check above.
+
+## Known and accepted
+
+Selected-radio tinting uses CSS `:has()`. On older iOS Safari the radio still
+works and shows its checked state via `accent-color`; only the card tint is
+missing. Accepted rather than restructuring the markup.

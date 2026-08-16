@@ -51,9 +51,21 @@ Environment variables (Vercel → Settings → Environment Variables):
     ENQUIRY_FROM     optional, defaults to onboarding@resend.dev
 
 `onboarding@resend.dev` only delivers to the Resend account owner's own
-address. Verify launchnexus.co.uk in Resend, then set ENQUIRY_FROM to
-something like `LaunchNexus <website@launchnexus.co.uk>` so enquiries reach the
-real inbox.
+address, so ENQUIRY_FROM must be set for this to work in production.
+
+We send from a **launchsession.co.uk** address, because that domain is already
+verified in Resend and verifying a second domain requires a paid plan. This is
+deliberate, not an oversight. The email only ever goes to us, and `reply_to` is
+the enquirer, so replying reaches them from the normal mailbox — the sender
+address is never seen by anyone outside.
+
+    ENQUIRY_FROM = LaunchNexus enquiries <website@launchsession.co.uk>
+
+Switch to a launchnexus.co.uk sender (which means upgrading Resend and
+verifying the domain) if the site ever emails the enquirer directly — an
+automated acknowledgement, a proposal link, a receipt. At that point the
+sending domain is client-facing and a mismatch costs both credibility and
+deliverability.
 
 To also store enquiries, run `supabase/enquiries.sql` and set `SUPABASE_URL`
 and `SUPABASE_SERVICE_ROLE_KEY`. The service-role key is used server-side only
@@ -63,7 +75,7 @@ enquiry that has already been emailed.
 ## Still to do
 
 - Point at the `launchnexus.co.uk` domain in Vercel.
-- Set `RESEND_API_KEY` and verify the domain in Resend.
+- Set `RESEND_API_KEY` and `ENQUIRY_FROM` in Vercel, then redeploy.
 - Get permission before naming the charity client on `work.html`.
 - Have the three legal pages reviewed.
 - Add real screenshots to the case studies on `work.html`.

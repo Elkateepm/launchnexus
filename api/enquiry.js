@@ -9,10 +9,21 @@
  *   RESEND_API_KEY      Resend API key
  *   ENQUIRY_TO          Optional. Defaults to info@launchnexus.co.uk
  *   ENQUIRY_FROM        Optional. Defaults to onboarding@resend.dev, which
- *                       only delivers to the Resend account owner. Once
- *                       launchnexus.co.uk is verified in Resend, set this to
- *                       something like "LaunchNexus <website@launchnexus.co.uk>"
- *                       so enquiries reach the real inbox.
+ *                       only delivers to the Resend account owner.
+ *
+ *                       In production this sends from a launchsession.co.uk
+ *                       address, because that domain is already verified in
+ *                       Resend and a second verified domain needs a paid plan.
+ *                       That is fine here: this email only ever goes to us, and
+ *                       reply_to is the enquirer, so replying still reaches
+ *                       them from the normal mailbox. Nobody outside sees the
+ *                       sender.
+ *
+ *                       Verify launchnexus.co.uk and switch this over if the
+ *                       site ever emails the enquirer directly (an automated
+ *                       acknowledgement, a proposal link, a receipt) — at that
+ *                       point the sending domain becomes client-facing and
+ *                       should match the brand.
  *
  * Optional (to also store enquiries):
  *   SUPABASE_URL

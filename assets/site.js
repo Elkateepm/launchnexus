@@ -216,3 +216,161 @@
       });
   });
 })();
+
+/* ==========================================================================
+   Motion layer.
+
+   Three rules throughout: nothing runs if the visitor asked for reduced
+   motion, ambient loops stop when off-screen or on a hidden tab, and every
+   effect is progressive — the page is complete without any of it.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (still.matches) return;
+
+  var narrow = window.matchMedia('(max-width: 700px)');
+
+  /* ---- Hero headline: rise word by word ---- */
+  var headline = document.querySelector('.hero h1');
+  if (headline) {
+    var parts = [];
+    Array.prototype.forEach.call(headline.childNodes, function (node) {
+      if (node.nodeType === 3) {
+        node.textContent.split(/(\s+)/).forEach(function (chunk) {
+          if (chunk.trim()) parts.push({ text: chunk, em: false });
+          else if (chunk) parts.push({ space: true });
+        });
+      } else {
+        // <em> holds the gradient words; keep it whole so the fill survives
+        parts.push({ text: node.textContent, em: true });
+      }
+    });
+    headline.textContent = '';
+    var n = 0;
+    parts.forEach(function (part) {
+      if (part.space) {
+        headline.appendChild(document.createTextNode(' '));
+        return;
+      }
+      var wrap = document.createElement('span');
+      wrap.className = 'word-wrap';
+      var inner = document.createElement(part.em ? 'em' : 'span');
+      inner.textContent = part.text;
+      if (part.em) {
+        var shell = document.createElement('span');
+        shell.appendChild(inner);
+        shell.style.animationDelay = (n * 65) + 'ms';
+        wrap.appendChild(shell);
+      } else {
+        inner.style.animationDelay = (n * 65) + 'ms';
+        wrap.appendChild(inner);
+      }
+      headline.appendChild(wrap);
+      n++;
+    });
+  }
+
+  /* ---- Index children so staggered transitions have something to key off ---- */
+  document.querySelectorAll('.grid, .modules, .scatter').forEach(function (group) {
+    Array.prototype.forEach.call(group.children, function (child, i) {
+      child.style.setProperty('--i', i);
+    });
+  });
+
+  /* ---- Reveal blocks that animate as a unit ---- */
+  var group = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('in');
+      group.unobserve(entry.target);
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.split, .modules').forEach(function (el) { group.observe(el); });
+
+  /* ---- Process steps: light each one, and grow the line to match ---- */
+  document.querySelectorAll('.steps').forEach(function (list) {
+    var steps = list.querySelectorAll('.step');
+    if (!steps.length) return;
+    var lit = 0;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('lit');
+        io.unobserve(entry.target);
+        lit++;
+        list.style.setProperty('--fill', Math.min(lit / steps.length, 1));
+      });
+    }, { threshold: 0.55, rootMargin: '0px 0px -12% 0px' });
+    steps.forEach(function (s) { io.observe(s); });
+  });
+
+  /* ---- Hero mockup: ambient life ---- */
+  var stage = document.querySelector('.hero .stage');
+  if (!stage) return;
+
+  var bars = stage.querySelectorAll('.chart i');
+  var pills = stage.querySelectorAll('.rows .st');
+  var kpis = stage.querySelectorAll('.kpi b');
+  var timer = null;
+  var onScreen = false;
+
+  var countUp = function (el) {
+    var target = parseInt(el.textContent, 10);
+    if (isNaN(target)) return;
+    var started = null;
+    var tick = function (now) {
+      if (!started) started = now;
+      var p = Math.min((now - started) / 900, 1);
+      // ease-out so it settles rather than stopping dead
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    el.textContent = '0';
+    requestAnimationFrame(tick);
+  };
+
+  var shuffle = function () {
+    bars.forEach(function (bar, i) {
+      setTimeout(function () {
+        bar.style.height = (34 + Math.random() * 56) + '%';
+      }, i * 70);
+    });
+    if (pills.length) {
+      var pill = pills[Math.floor(Math.random() * pills.length)];
+      pill.classList.remove('pop');
+      void pill.offsetWidth; // restart the animation
+      pill.classList.add('pop');
+    }
+  };
+
+  var run = function () {
+    if (timer || !onScreen || document.hidden) return;
+    // Slower on phones: less work, and less distracting on a small screen.
+    timer = setInterval(shuffle, narrow.matches ? 6500 : 4200);
+  };
+  var halt = function () {
+    clearInterval(timer);
+    timer = null;
+  };
+
+  var counted = false;
+  new IntersectionObserver(function (entries) {
+    onScreen = entries[0].isIntersecting;
+    if (onScreen) {
+      if (!counted) {
+        counted = true;
+        kpis.forEach(countUp);
+      }
+      run();
+    } else {
+      halt();
+    }
+  }, { threshold: 0.25 }).observe(stage);
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) halt();
+    else run();
+  });
+})();
